@@ -116,11 +116,11 @@ def main_game():
                 if event.key == pygame.K_SPACE:
                     bird.flap()
 
-        bird.update()
+       # bird.update()
 
         for pipe in pipes:
             pipe.move()
-
+        bird.update()
         base.move()
 
         # Add new pipe and remove old pipes
@@ -137,6 +137,10 @@ def main_game():
             return
 
         screen.blit(bg_img, (0, 0))
+        for pipe in pipes:
+            pipe.move()
+
+        base.move()
         display_score(score)
 
         pygame.display.update()
