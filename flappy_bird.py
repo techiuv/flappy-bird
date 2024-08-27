@@ -22,7 +22,7 @@ bird_img = pygame.image.load(os.path.join(ASSETS_DIR, 'bird.png'))
 bg_img = pygame.image.load(os.path.join(ASSETS_DIR, 'background.png'))
 pipe_img = pygame.image.load(os.path.join(ASSETS_DIR, 'pipe.png'))
 base_img = pygame.image.load(os.path.join(ASSETS_DIR, 'base.png'))
-flappy_font = pygame.font.Font(os.path.join(ASSETS_DIR, 'flappy_font.ttf'), 36)
+flappy_font = pygame.font.Font(os.path.join(ASSETS_DIR, 'Roboto-Regular.ttf'), 36)
 
 # Setup screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
