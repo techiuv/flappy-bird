@@ -7,7 +7,6 @@ pygame.init()
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
 
-# Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
@@ -17,20 +16,15 @@ FLAP_POWER = -6
 PIPE_SPEED = 4
 PIPE_GAP = 150
 
-# Load assets
+# Load assets 
 ASSETS_DIR = 'assets'
 bird_img = pygame.image.load(os.path.join(ASSETS_DIR, 'bird.png'))
 bg_img = pygame.image.load(os.path.join(ASSETS_DIR, 'background.png'))
 pipe_img = pygame.image.load(os.path.join(ASSETS_DIR, 'pipe.png'))
 base_img = pygame.image.load(os.path.join(ASSETS_DIR, 'base.png'))
-flappy_font = pygame.font.Font(os.path.join(ASSETS_DIR, 'Roboto-Regular.ttf'), 36)
+flappy_font = pygame.font.Font(os.path.join(ASSETS_DIR, 'flappy_font.ttf'), 36)
 
-# Sound effects
-flap_sound = pygame.mixer.Sound(os.path.join(ASSETS_DIR, 'flap.wav'))
-hit_sound = pygame.mixer.Sound(os.path.join(ASSETS_DIR, 'hit.wav'))
-score_sound = pygame.mixer.Sound(os.path.join(ASSETS_DIR, 'score.wav'))
-
-# Screen setup
+# Setup screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Flappy Bird Advanced')
 
@@ -43,8 +37,7 @@ class Bird:
 
     def flap(self):
         self.movement = FLAP_POWER
-        flap_sound.play()
-
+        
     def update(self):
         self.movement += GRAVITY
         self.rect.centery += self.movement
@@ -53,10 +46,10 @@ class Bird:
     def check_collision(self, pipes, base):
         for pipe in pipes:
             if self.rect.colliderect(pipe.rect):
-                hit_sound.play()
+                 
                 return False
         if self.rect.bottom >= base.y or self.rect.top <= 0:
-            hit_sound.play()
+            
             return False
         return True
 
@@ -138,7 +131,7 @@ def main_game():
         if pipes[0].rect.centerx < -pipe_img.get_width():
             pipes.pop(0)
             score += 1
-            score_sound.play()
+            # score_sound.play()  
 
         if not bird.check_collision(pipes, base):
             if score > high_score:
