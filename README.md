@@ -20,7 +20,7 @@ FlappyBird/
 │   ├── background.png
 │   ├── pipe.png
 │   ├── base.png
-│   └── flappy_font.ttf
+│   └── Roboto-Regular.ttf
 │
 ├── flappy_bird.py
 ├── README.md
