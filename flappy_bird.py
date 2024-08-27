@@ -45,11 +45,9 @@ class Bird:
 
     def check_collision(self, pipes, base):
         for pipe in pipes:
-            if self.rect.colliderect(pipe.rect):
-                 
+            if self.rect.colliderect(pipe.rect) or self.rect.colliderect(pipe.top_rect):
                 return False
         if self.rect.bottom >= base.y or self.rect.top <= 0:
-            
             return False
         return True
 
@@ -132,13 +130,13 @@ def main_game():
             pipes.pop(0)
             score += 1
             # score_sound.play()  
-
         if not bird.check_collision(pipes, base):
             if score > high_score:
                 high_score = score
             game_over_screen(score, high_score)
             return
 
+        screen.blit(bg_img, (0, 0))
         display_score(score)
 
         pygame.display.update()
