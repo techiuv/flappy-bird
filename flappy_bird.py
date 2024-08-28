@@ -15,17 +15,18 @@ GRAVITY = 0.25
 FLAP_POWER = -6
 PIPE_SPEED = 4
 PIPE_GAP = 150
- 
+
+# Load assets 
 ASSETS_DIR = 'assets'
 bird_img = pygame.image.load(os.path.join(ASSETS_DIR, 'bird.png'))
 bg_img = pygame.image.load(os.path.join(ASSETS_DIR, 'background.png'))
 pipe_img = pygame.image.load(os.path.join(ASSETS_DIR, 'pipe.png'))
 base_img = pygame.image.load(os.path.join(ASSETS_DIR, 'base.png'))
-flappy_font = pygame.font.Font(os.path.join(ASSETS_DIR, 'Roboto-Regular.ttf'), 36)
+flappy_font = pygame.font.Font(os.path.join(ASSETS_DIR, 'flappy_font.ttf'), 36)
 
 # Setup screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Flappy Bird')
+pygame.display.set_caption('Flappy Bird Advanced')
 
 clock = pygame.time.Clock()
 
@@ -80,25 +81,6 @@ class Base:
         screen.blit(base_img, (self.x1, self.y))
         screen.blit(base_img, (self.x2, self.y))
 
-class Button:
-    def __init__(self, text, x, y, width, height):
-        self.rect = pygame.Rect(x, y, width, height)
-        self.color = (0, 200, 0)
-        self.text = text
-        self.font = flappy_font
-        self.text_surf = self.font.render(text, True, WHITE)
-        self.text_rect = self.text_surf.get_rect(center=self.rect.center)
-    
-    def draw(self):
-        pygame.draw.rect(screen, self.color, self.rect)
-        screen.blit(self.text_surf, self.text_rect)
-
-    def is_pressed(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(event.pos):
-                return True
-        return False
-
 def create_pipe():
     return Pipe(SCREEN_WIDTH)
 
@@ -116,6 +98,7 @@ def game_over_screen(score, high_score):
     screen.blit(high_score_surface, (SCREEN_WIDTH // 2 - high_score_surface.get_width() // 2, 300))
     
     pygame.display.update()
+    pygame.time.wait(2000)
 
 def main_game():
     bird = Bird()
@@ -124,61 +107,41 @@ def main_game():
     score = 0
     high_score = 0
 
-    start_button = Button("Start Game", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 25, 200, 50)
-    play_again_button = Button("Play Again", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 25, 200, 50)
-    
-    game_started = False
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and game_started:
+                if event.key == pygame.K_SPACE:
                     bird.flap()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if not game_started:
-                    if start_button.is_pressed(event):
-                        game_started = True
-                else:
-                    if play_again_button.is_pressed(event):
-                        main_game()
-                        return
 
-        if game_started:
-            for pipe in pipes:
-                pipe.move()
-            bird.update()
-            base.move()
+        bird.update()
 
-            if pipes[-1].rect.centerx < SCREEN_WIDTH // 2:
-                pipes.append(create_pipe())
-            if pipes[0].rect.centerx < -pipe_img.get_width():
-                pipes.pop(0)
-                score += 1
+        for pipe in pipes:
+            pipe.move()
 
-            if not bird.check_collision(pipes, base):
-                if score > high_score:
-                    high_score = score
-                game_over_screen(score, high_score)
-                pygame.display.update()
-                pygame.time.wait(2000)
-                game_started = False
-                continue
+        base.move()
 
-            screen.blit(bg_img, (0, 0))
-            for pipe in pipes:
-                pipe.move()
-            base.move()
-            display_score(score)
+        # Add new pipe and remove old pipes
+        if pipes[-1].rect.centerx < SCREEN_WIDTH // 2:
+            pipes.append(create_pipe())
+        if pipes[0].rect.centerx < -pipe_img.get_width():
+            pipes.pop(0)
+            score += 1
+            # score_sound.play()  # Uncomment if score sound is added
 
-            pygame.display.update()
-            clock.tick(60)
-        else:
-            screen.blit(bg_img, (0, 0))
-            start_button.draw()
-            pygame.display.update()
-            clock.tick(60)
+        if not bird.check_collision(pipes, base):
+            if score > high_score:
+                high_score = score
+            game_over_screen(score, high_score)
+            return
+
+        screen.blit(bg_img, (0, 0))
+        display_score(score)
+
+        pygame.display.update()
+        clock.tick(60)
 
     pygame.quit()
 
