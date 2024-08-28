@@ -1,3 +1,5 @@
+# This Flappy bird game is not completed yet 
+
 import pygame
 import random
 import os
