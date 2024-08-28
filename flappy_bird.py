@@ -15,8 +15,7 @@ GRAVITY = 0.25
 FLAP_POWER = -6
 PIPE_SPEED = 4
 PIPE_GAP = 150
-
-# Load assets 
+ 
 ASSETS_DIR = 'assets'
 bird_img = pygame.image.load(os.path.join(ASSETS_DIR, 'bird.png'))
 bg_img = pygame.image.load(os.path.join(ASSETS_DIR, 'background.png'))
@@ -26,7 +25,7 @@ flappy_font = pygame.font.Font(os.path.join(ASSETS_DIR, 'Roboto-Regular.ttf'), 3
 
 # Setup screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Flappy Bird Advanced')
+pygame.display.set_caption('Flappy Bird')
 
 clock = pygame.time.Clock()
 
