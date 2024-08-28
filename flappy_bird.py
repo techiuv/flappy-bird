@@ -5,7 +5,7 @@ import os
 pygame.init()
 
 SCREEN_WIDTH = 400
-SCREEN_HEIGHT = 600
+SCREEN_HEIGHT = 500
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
