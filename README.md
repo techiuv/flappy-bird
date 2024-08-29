@@ -1,4 +1,4 @@
-# Flappy Bird Advanced
+# Flappy Bird Game
 
 An advanced version of the Flappy Bird game using Python and Pygame.
 
