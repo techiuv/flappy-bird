@@ -1,6 +1,6 @@
-# Flappy Bird Advanced
+# Flappy Bird 
 
-An advanced version of the Flappy Bird game using Python and Pygame.
+Flappy Bird game using Python and Pygame.
 
 ## Features
 
