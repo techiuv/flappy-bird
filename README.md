@@ -5,8 +5,7 @@ Flappy Bird game using Python and Pygame.
 ## Features
 
 - Responsive design that scales with different screen sizes.
-- Difficulty levels with increasing pipe speeds and gaps.
-- Sound effects for bird flaps, collisions, and scoring.
+- Difficulty levels with increasing pipe speeds and gaps
 - High score tracking and display.
 - Game over screen with options to restart or quit.
 - Object-oriented design for better code management.
